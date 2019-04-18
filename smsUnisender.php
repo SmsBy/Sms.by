@@ -3,20 +3,20 @@
     private $token;
 
 /**
- * $token - API ключ
+ * $token - API РєР»СЋС‡
  */
     public function __construct($token) {
       $this->token = $token;
     }
 
 /**
- * Отправляет команду на sms.unisender.by/api/v1/.
- *   Если команда обработана успешно, возвращает ответ от API в виде объекта.
- *   Если команда обработана неуспешно - передаёт ошибку методу error() и возвращает false.
- * $command - команда API
- * $params - ассоциативный массив, ключи которого являются названиями параметров команды кроме token, значения - их значениями.
- *   token в $params передавать не нужно.
- *   Необязательный параметр, так как для таких команд, как getLimit, getMessagesList, getPasswordObjects никаких параметров передавать не нужно.
+ * РћС‚РїСЂР°РІР»СЏРµС‚ РєРѕРјР°РЅРґСѓ РЅР° sms.unisender.by/api/v1/.
+ *   Р•СЃР»Рё РєРѕРјР°РЅРґР° РѕР±СЂР°Р±РѕС‚Р°РЅР° СѓСЃРїРµС€РЅРѕ, РІРѕР·РІСЂР°С‰Р°РµС‚ РѕС‚РІРµС‚ РѕС‚ API РІ РІРёРґРµ РѕР±СЉРµРєС‚Р°.
+ *   Р•СЃР»Рё РєРѕРјР°РЅРґР° РѕР±СЂР°Р±РѕС‚Р°РЅР° РЅРµСѓСЃРїРµС€РЅРѕ - РїРµСЂРµРґР°С‘С‚ РѕС€РёР±РєСѓ РјРµС‚РѕРґСѓ error() Рё РІРѕР·РІСЂР°С‰Р°РµС‚ false.
+ * $command - РєРѕРјР°РЅРґР° API
+ * $params - Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Р№ РјР°СЃСЃРёРІ, РєР»СЋС‡Рё РєРѕС‚РѕСЂРѕРіРѕ СЏРІР»СЏСЋС‚СЃСЏ РЅР°Р·РІР°РЅРёСЏРјРё РїР°СЂР°РјРµС‚СЂРѕРІ РєРѕРјР°РЅРґС‹ РєСЂРѕРјРµ token, Р·РЅР°С‡РµРЅРёСЏ - РёС… Р·РЅР°С‡РµРЅРёСЏРјРё.
+ *   token РІ $params РїРµСЂРµРґР°РІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ.
+ *   РќРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ, С‚Р°Рє РєР°Рє РґР»СЏ С‚Р°РєРёС… РєРѕРјР°РЅРґ, РєР°Рє getLimit, getMessagesList, getPasswordObjects РЅРёРєР°РєРёС… РїР°СЂР°РјРµС‚СЂРѕРІ РїРµСЂРµРґР°РІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ.
  */
     private function sendRequest($command, $params=array()) {
       $url = 'http://sms.unisender.by/api/v1/'.$command.'?token='.$this->token;
@@ -40,25 +40,25 @@
     }
 
 /**
- * Обрабатывает ошибки.
- *   Здесь может быть любой код, обрабатывающий пришедшую по API ошибку, соответствующий вашему приложению.
- * $error - текст ошибки
+ * РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РѕС€РёР±РєРё.
+ *   Р—РґРµСЃСЊ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р»СЋР±РѕР№ РєРѕРґ, РѕР±СЂР°Р±Р°С‚С‹РІР°СЋС‰РёР№ РїСЂРёС€РµРґС€СѓСЋ РїРѕ API РѕС€РёР±РєСѓ, СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РІР°С€РµРјСѓ РїСЂРёР»РѕР¶РµРЅРёСЋ.
+ * $error - С‚РµРєСЃС‚ РѕС€РёР±РєРё
  */
     private function error($error) {
       trigger_error("<b>smsUnisender error:</b> $error");
     }
 
 /**
- * Метод-обёртка для команды getLimit
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ getLimit
  */
     public function getLimit() {
       return $this->sendRequest('getLimit');
     }
 
 /**
- * Метод-обёртка для команды createSMSMessage
- * $message - текст создаваемого сообщения
- * $alphaname_id - ID альфа-имени, необязательный параметр
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ createSMSMessage
+ * $message - С‚РµРєСЃС‚ СЃРѕР·РґР°РІР°РµРјРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+ * $alphaname_id - ID Р°Р»СЊС„Р°-РёРјРµРЅРё, РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ
  */
     public function createSMSMessage($message, $alphaname_id=0) {
       $params['message'] = $message;
@@ -68,8 +68,8 @@
     }
 
 /**
- * Метод-обёртка для команды checkSMSMessageStatus
- * $message_id - ID созданного сообщения
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ checkSMSMessageStatus
+ * $message_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
  */
     public function checkSMSMessageStatus($message_id) {
       $params['message_id'] = (integer)$message_id;
@@ -77,16 +77,16 @@
     }
 
 /**
- * Метод-обёртка для команды getMessagesList
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ getMessagesList
  */
     public function getMessagesList() {
       return $this->sendRequest('getMessagesList');
     }
 
 /**
- * Метод-обёртка для команды sendSms
- * $message_id - ID созданного сообщения
- * $phone - номер телефона в формате 375291234567
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ sendSms
+ * $message_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+ * $phone - РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РІ С„РѕСЂРјР°С‚Рµ 375291234567
  */
     public function sendSms($message_id, $phone) {
       $params['message_id'] = (integer)$message_id;
@@ -95,8 +95,8 @@
     }
 
 /**
- * Метод-обёртка для команды checkSMS
- * $sms_id - ID отправленного SMS
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ checkSMS
+ * $sms_id - ID РѕС‚РїСЂР°РІР»РµРЅРЅРѕРіРѕ SMS
  */
     public function checkSMS($sms_id) {
       $params['sms_id'] = (integer)$sms_id;
@@ -104,9 +104,9 @@
     }
 
 /**
- * Метод-обёртка для команды createPasswordObject
- * $type_id - тип создаваемого объекта пароля, может принимать значения letters, numbers и both
- * $len - длина создаваемого объекта пароля, целое число от 1 до 16
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ createPasswordObject
+ * $type_id - С‚РёРї СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ, РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ letters, numbers Рё both
+ * $len - РґР»РёРЅР° СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ, С†РµР»РѕРµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 16
  */
     public function createPasswordObject($type_id, $len) {
       $params['type_id'] = $type_id;
@@ -115,10 +115,10 @@
     }
 
 /**
- * Метод-обёртка для команды editPasswordObject
- * $password_object_id - ID созданного объекта пароля
- * $type_id - тип создаваемого объекта пароля, может принимать значения letters, numbers и both
- * $len - длина создаваемого объекта пароля, целое число от 1 до 16
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ editPasswordObject
+ * $password_object_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ
+ * $type_id - С‚РёРї СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ, РјРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ letters, numbers Рё both
+ * $len - РґР»РёРЅР° СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ, С†РµР»РѕРµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 16
  */
     public function editPasswordObject($password_object_id, $type_id, $len) {
       $params['id'] = (integer)$password_object_id;
@@ -128,8 +128,8 @@
     }
 
 /**
- * Метод-обёртка для команды deletePasswordObject
- * $password_object_id - ID созданного объекта пароля
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ deletePasswordObject
+ * $password_object_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ
  */
     public function deletePasswordObject($password_object_id) {
       $params['id'] = (integer)$password_object_id;
@@ -137,15 +137,15 @@
     }
 
 /**
- * Метод-обёртка для команды getPasswordObjects
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ getPasswordObjects
  */
     public function getPasswordObjects() {
       return $this->sendRequest('getPasswordObjects');
     }
 
 /**
- * Метод-обёртка для команды getPasswordObject
- * $password_object_id - ID созданного объекта пароля
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ getPasswordObject
+ * $password_object_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ
  */
     public function getPasswordObject($password_object_id) {
       $params['id'] = (integer)$password_object_id;
@@ -153,11 +153,11 @@
     }
 
 /**
- * Метод-обёртка для команды sendSmsMessageWithCode
- * $message - текст создаваемого сообщения
- * $password_object_id - ID созданного объекта пароля
- * $phone - номер телефона в формате 375291234567
- * $alphaname_id - ID альфа-имени, необязательный параметр
+ * РњРµС‚РѕРґ-РѕР±С‘СЂС‚РєР° РґР»СЏ РєРѕРјР°РЅРґС‹ sendSmsMessageWithCode
+ * $message - С‚РµРєСЃС‚ СЃРѕР·РґР°РІР°РµРјРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
+ * $password_object_id - ID СЃРѕР·РґР°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РїР°СЂРѕР»СЏ
+ * $phone - РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РІ С„РѕСЂРјР°С‚Рµ 375291234567
+ * $alphaname_id - ID Р°Р»СЊС„Р°-РёРјРµРЅРё, РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ
  */
     public function sendSmsMessageWithCode($message, $password_object_id, $phone, $alphaname_id=0) {
       $params['message'] = $message;
